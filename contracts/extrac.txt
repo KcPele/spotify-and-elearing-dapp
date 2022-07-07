@@ -1,0 +1,16 @@
+/*
+     * @notice Method for updating listing
+     * @param nftAddress Address of NFT contract
+     * @param tokenId Token ID of NFT
+     * @param newPrice Price in Wei of the item
+     */
+    //for now there will not be update
+    // function updateListing(uint256 _courseId, uint256 newPrice)
+    //     external
+    //     isListed(_courseId)
+    //     nonReentrant
+    //     isOwner(_courseId, msg.sender)
+    // {
+    //     s_listings[s_nftCourseAddress][_courseId].price = newPrice;
+    //     emit ItemListed(msg.sender, s_nftCourseAddress, _courseId, newPrice);
+    // }
