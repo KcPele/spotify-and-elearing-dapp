@@ -33,17 +33,13 @@ const networkConfig = {
 const developmentChains = ["hardhat", "localhost"]
 const VERIFICATION_BLOCK_CONFIRMATIONS = 6
 const frontEndContractsFile = "./frontend/constants/networkMapping.json"
-const frontEndContractsFile2 =
-    "./frontend/constants/networkMapping.json"
 const frontEndAbiLocation = "./frontend/constants/"
-const frontEndAbiLocation2 = "./frontend/constants/"
+
 
 module.exports = {
     networkConfig,
     developmentChains,
     VERIFICATION_BLOCK_CONFIRMATIONS,
     frontEndContractsFile,
-    frontEndContractsFile2,
     frontEndAbiLocation,
-    frontEndAbiLocation2,
 }

@@ -169,7 +169,7 @@ contract NftMarketplace is ReentrancyGuard, Handlers, Ownable {
 
     //in the front end i will mintNFtContent first then approve before i list music
     // the front end form will accept tokenURI thani will use for the above
-    function listMusic( uint256 _musicId, uint256 _price) external notListedMusic(_musicId) isOwner(_musicId, msg.sender){
+    function listMusic(uint256 _musicId, uint256 _price) external notListedMusic(_musicId) isOwner(_musicId, msg.sender){
         if (_price <= 0) {
             revert PriceMustBeAboveZero();
         }
@@ -312,6 +312,9 @@ contract NftMarketplace is ReentrancyGuard, Handlers, Ownable {
     }
     function getSong(uint256 _musicId) external view returns (SongListing memory) {
         return s_songListings[_musicId];
+    }
+    function getId() public view returns(uint256){
+        return s_totalCourseId;
     }
 
     function getProceeds(address seller, uint256 _courseId) external view returns (uint256) {

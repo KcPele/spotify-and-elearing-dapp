@@ -33,6 +33,11 @@ create a smart contract that mints music and ebooks
     ]
 }
 
+--------------note
+to get the id of what is in place is
+after seding the url to the basic contract
+i will call the s_totalCorseId, as that will be the id of the minted Uri
+and pass it as the id of the content to be listed
 
 -------------frontend-----------
     ----it will ook like an e-com site

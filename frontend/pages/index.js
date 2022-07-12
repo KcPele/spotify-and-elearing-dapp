@@ -1,21 +1,22 @@
 import Image from "next/image"
 import styles from "../styles/Home.module.css"
-import { useMoralisQuery, useMoralis } from "react-moralis"
-import NFTBox from "../components/NFTBox"
+// import { useMoralisQuery, useMoralis } from "react-moralis"
+// import NFTBox from "../components/old/NFTBox"
 
 export default function Home() {
-    const { isWeb3Enabled } = useMoralis()
-    const { data: listedNfts, isFetching: fetchingListedNfts } = useMoralisQuery(
-        // TableName
-        // Function for the query
-        "ActiveItem",
-        (query) => query.limit(10).descending("tokenId")
-    )
-    console.log(listedNfts)
+    // const { isWeb3Enabled } = useMoralis()
+    // const { data: listedNfts, isFetching: fetchingListedNfts } = useMoralisQuery(
+    //     // TableName
+    //     // Function for the query
+    //     "ActiveItem",
+    //     (query) => query.limit(10).descending("tokenId")
+    // )
+    // console.log(listedNfts)
 
     return (
-        <div className="container mx-auto">
-            <h1 className="py-4 px-4 font-bold text-2xl">Recently Listed</h1>
+        <div className="container mx-auto ">
+            <h2>WelCome</h2>
+            {/* <h1 className="py-4 px-4 font-bold text-2xl">Recently Listed</h1>
             <div className="flex flex-wrap">
                 {isWeb3Enabled ? (
                     fetchingListedNfts ? (
@@ -42,7 +43,7 @@ export default function Home() {
                 ) : (
                     <div>Web3 Currently Not Enabled</div>
                 )}
-            </div>
+            </div> */}
         </div>
     )
 }
