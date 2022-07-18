@@ -5,7 +5,14 @@ import { NotificationProvider } from "web3uikit"
 import { Navbar } from "../components"
 import NftContextProvider from "../context/NftContext"
 
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"
+const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    uri: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
+})
+
 function MyApp({ Component, pageProps }) {
+ 
     return (
         <div className="scroll-smooth">
             <Head>
@@ -14,6 +21,7 @@ function MyApp({ Component, pageProps }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <MoralisProvider initializeOnMount={false} >
+            <ApolloProvider client={client}>
                 <NotificationProvider>
                     <NftContextProvider>
                     <Navbar />
@@ -22,6 +30,7 @@ function MyApp({ Component, pageProps }) {
                     </div>
                     </NftContextProvider>
                 </NotificationProvider>
+                </ApolloProvider>
             </MoralisProvider>
         </div>
     )
