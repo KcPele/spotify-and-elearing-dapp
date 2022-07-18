@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
 import {Modal, Input } from "web3uikit"
-import { useWeb3Contract } from 'react-moralis'
-import nftMarketplaceAbi from "../constants/NftMarketplace.json"
+import { useMoralis, useWeb3Contract } from 'react-moralis'
+
 import networkMapping from "../../constants/networkMapping.json"
-import nftAbi from "../constants/BasicNft.json"
+import nftAbi from "../../constants/BasicCourseNft.json"
+import nftMarketplaceAbi from '../../constants/NftMarketplace.json'
 import { ethers } from "ethers"
 const UploadMusic = ({isVisible, onClose}) => {
+  const {chainId} = useMoralis()
     const [musicUri, setMusicUri] = useState("")
     const [price, setPrice] = useState(0)
     const { runContractFunction } = useWeb3Contract()
+
+    const chainString = chainId ? parseInt(chainId).toString() : "31337"
+    //will change it to nftaddress
+
     const marketplaceAddress = networkMapping[chainString].NftMarketplace[0]
     const nftAddress = networkMapping[chainString].NftAddress[0]
     const { runContractFunction: getMusicId } = useWeb3Contract({

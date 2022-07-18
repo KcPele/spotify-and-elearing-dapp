@@ -25,14 +25,16 @@ const Music = ({price, seller, cover, description, musicId }) => {
     const [title, setTitle] = useState("")
     const [artist, setArtist] = useState("")
     const [imageURI, setImageURI] = useState("")
-    const marketplaceAddress = networkMapping[chainString].NftMarketplace[0]
+    const chainString = chainId ? parseInt(chainId).toString() : "31337"
+    //will change it to nftaddress
+
+    const marketplaceAddress = networkMapping[chainString]["NftMarketplace"][0]
+    console.log(marketplaceAddress)
     const nftAddress = networkMapping[chainString].NftAddress[0]
     const isOwnedByUser = seller === account || seller === undefined
     const formattedSellerAddress = isOwnedByUser ? "you" : truncateStr(seller || "", 15)
 
-    const chainString = chainId ? parseInt(chainId).toString() : "31337"
-    //will change it to nftaddress
-
+   
     const { runContractFunction: getTokenURI } = useWeb3Contract({
         abi: nftAbi,
         contractAddress: nftAddress,

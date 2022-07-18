@@ -169,6 +169,11 @@ let PriceForUpload = ethers.utils.parseEther("0.01")
             // })
          })
 
+         describe("buyMusic", function() {
+            it("should emit and event after buying a music", async function() {
+                
+            })
+         })
         
         //   describe("withdrawProceeds", function () {
         //       it("doesn't allow 0 proceed withdrawls", async function () {

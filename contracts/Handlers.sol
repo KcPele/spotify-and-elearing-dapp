@@ -23,7 +23,7 @@ error AlreadyPurchased();
 error TransFerFailed();
 abstract contract Handlers {
 
-        event CourseListed(
+    event CourseListed(
         address indexed seller,
         address indexed nftAddress,
         uint256 indexed tokenId,
