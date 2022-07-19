@@ -7,7 +7,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
     : describe("Basic NFT Unit Tests", function () {
           let deployer, basicNft, basicNftContract
           const TOKEN_ID = 0
-          const TOKEN_URI = "ipfs://bafybeig37ioir76s7mg5oobetncojcm3c3hxasyd4rv"
+          const TOKEN_URI = "https://ipfs.infura.io/ipfs/Qma9TYRgjJVfNm4x78GNZERHeL8GNfGFoVELxq4mjUfN1e"
           beforeEach(async () => {
               accounts = await ethers.getSigners() // could also do with getNamedAccounts
               deployer = accounts[0]

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useNotification } from "web3uikit"
 import nftAbi from "../../constants/BasicCourseNft.json"
+import nftMarketplaceAbi from "../../constants/NftMarketplace.json"
 import networkMapping from "../../constants/networkMapping.json"
 import Image from "next/image"
 import { ethers } from "ethers"
@@ -20,56 +21,57 @@ const truncateStr = (fullStr, strLen) => {
     )
 }
 
-const Music = ({price, seller, cover, description, musicId }) => {
+const Music = ({ price, seller, cover, description, musicId }) => {
     const { chainId, account, isWeb3Enabled } = useMoralis()
-    const [title, setTitle] = useState("")
-    const [artist, setArtist] = useState("")
     const [imageURI, setImageURI] = useState("")
+    const dispatch = useNotification()
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     //will change it to nftaddress
 
     const marketplaceAddress = networkMapping[chainString]["NftMarketplace"][0]
-    console.log(marketplaceAddress)
+
     const nftAddress = networkMapping[chainString].NftAddress[0]
     const isOwnedByUser = seller === account || seller === undefined
     const formattedSellerAddress = isOwnedByUser ? "you" : truncateStr(seller || "", 15)
 
-   
-    const { runContractFunction: getTokenURI } = useWeb3Contract({
-        abi: nftAbi,
-        contractAddress: nftAddress,
-        functionName: "tokenURI",
+    const { runContractFunction: buyItem } = useWeb3Contract({
+        abi: nftMarketplaceAbi,
+        contractAddress: marketplaceAddress,
+        functionName: "buyMusic",
+        msgValue: price,
         params: {
-            tokenId: musicId,
+            _musicId: musicId,
         },
     })
-
-    async function updateUI() {
-        const tokenURI = await getTokenURI()
-        console.log(`The TokenURI is ${tokenURI}`)
-        // We are going to cheat a little here...
-        if (tokenURI) {
-            // IPFS Gateway: A server that will return IPFS files from a "normal" URL.
-            const requestURL = tokenURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-            const tokenURIResponse = await (await fetch(requestURL)).json()
-            const imageURI = tokenURIResponse.image
-            const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-
-            console.log(tokenURIResponse)
-    
-        }
+    const handleBuyItemSuccess = async (tx) => {
+        await tx.wait(1)
+        dispatch({
+            type: "success",
+            message: " Song Payed!",
+            title: "Song Bought",
+            position: "topR",
+        })
     }
-
-    useEffect(() => {
-        if (isWeb3Enabled) {
-            updateUI()
-        }
-    }, [isWeb3Enabled])
     const handleCardClick = () => {
         console.log("card clicked")
+        buyItem({
+            onError: (error) => console.log(error),
+            onSuccess: handleBuyItemSuccess,
+        })
+        // isOwnedByUser
+        //     ? "min"
+        //     : buyItem({
+        //           onError: (error) => console.log(error),
+        //           onSuccess: handleBuyItemSuccess,
+        //       })
     }
+    
+
     return (
-        <div className="max-w-[60%] flex  rounded p-3 card-shadow text-white">
+        <div
+            className="max-w-[60%] flex cursor-pointer rounded p-3 card-shadow text-white"
+            onClick={handleCardClick}
+        >
             <div className="flex flex-col items-center">
                 <Image
                     className="rounded-full m-auto"

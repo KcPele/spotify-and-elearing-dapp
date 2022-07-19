@@ -34,6 +34,14 @@ const AudioPlayer = () => {
         }
       }
       useEffect(() => {
+        // Pause and clean up on unmount
+        return () => {
+          audioRef.current.pause();
+          clearInterval(intervalRef.current);
+        }
+      }, []);
+
+      useEffect(() => {
         if (isPlaying) {
           audioRef.current.play();
           startTimer();
@@ -42,14 +50,7 @@ const AudioPlayer = () => {
         }
       }, [isPlaying]);
 
-      useEffect(() => {
-        // Pause and clean up on unmount
-        return () => {
-          audioRef.current.pause();
-          clearInterval(intervalRef.current);
-        }
-      }, []);
-
+      
       // Handle setup when changing tracks
 useEffect(() => {
     audioRef.current.pause();

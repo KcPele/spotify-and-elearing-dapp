@@ -1,0 +1,12 @@
+{
+    "title": "Someone Like You",
+    "description": "about music",
+    "image": "https://ipfs.infura.io/ipfs/QmZMkxeC1PwKXPPc36XTVzNGsU6qZ71b5Fe5yw1Bk1bGwa",
+    "attributes": [
+        {   
+            "artist":"Adele",
+            "audioSrc": "https://ipfs.infura.io/ipfs/QmUcWbUDMjpJesDziA3tSZ8uN982MsmzR3YkYpccaq1Ls1",
+            "color": "gray"
+        }
+    ]
+}

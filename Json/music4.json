@@ -1,0 +1,12 @@
+{
+    "title": "Hello",
+    "description": "about music",
+    "image": "https://ipfs.infura.io/ipfs/QmciurgC4mN4bpHTeQHESPVwhwrfeVmc1bQfa7PSEfFGk9",
+    "attributes": [
+        {   
+            "artist":"Adele",
+            "audioSrc": "https://ipfs.infura.io/ipfs/QmVHgJLD7QqPaheDHPxCeykrUU3QEbt5uSPQeGpqE1cY1K",
+            "color": "gray"
+        }
+    ]
+}

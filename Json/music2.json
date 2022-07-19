@@ -1,0 +1,12 @@
+{
+    "title": "Rolling In The Deep",
+    "description": "about music",
+    "image": "https://ipfs.infura.io/ipfs/QmQuxAcSsTJwa4XygrA4jrBbfMS2FzhrH9W8amc7MLaaLK",
+    "attributes": [
+        {   
+            "artist":"Adele",
+            "audioSrc": "https://ipfs.infura.io/ipfs/QmWxcjf9KxKw3jVMQoyDxXJVPDhj4Us6oLke3AYQtBY8rc",
+            "color": "gray"
+        }
+    ]
+}

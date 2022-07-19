@@ -13,7 +13,18 @@ export const GET_ACTIVE_MUSICS = gql`
         }
     }
 `
-
+export const GET_USER_MUSICS = gql`
+{
+    activeMusic(first: 5, where: { buyer: "0x00000000" }) {
+        id
+        buyer
+        seller
+        nftAddress
+        tokenId
+        price
+    }
+}
+`
 export const GET_ACTIVE_COURSES = gql`
     {
         activeCourse(first: 5, where: { buyer: "0x00000000" }) {

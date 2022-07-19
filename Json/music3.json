@@ -1,0 +1,12 @@
+{
+    "title": "Skyfall",
+    "description": "about music",
+    "image": "https://ipfs.infura.io/ipfs/QmarosgmFwsZHpt7SxNFWLYzMX31QVG7xZrojGYdmWiuqT",
+    "attributes": [
+        {   
+            "artist":"Adele",
+            "audioSrc": "https://ipfs.infura.io/ipfs/QmPTH4eisvCNrdLFSJEU46ZuZ8ydq5znVnRUzmJSFo14Ko",
+            "color": "gray"
+        }
+    ]
+}
