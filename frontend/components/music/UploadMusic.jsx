@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {Modal, Input } from "web3uikit"
 import { useMoralis, useWeb3Contract } from 'react-moralis'
-
+import {useNotification} from 'web3uikit'
 import networkMapping from "../../constants/networkMapping.json"
 import nftAbi from "../../constants/BasicCourseNft.json"
 import nftMarketplaceAbi from '../../constants/NftMarketplace.json'
@@ -11,7 +11,7 @@ const UploadMusic = ({isVisible, onClose}) => {
     const [musicUri, setMusicUri] = useState("")
     const [price, setPrice] = useState(0)
     const { runContractFunction } = useWeb3Contract()
-
+    const dispatch = useNotification() 
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     //will change it to nftaddress
 
@@ -25,7 +25,7 @@ const UploadMusic = ({isVisible, onClose}) => {
   })
   
  //https://ipfs.infura.io/ipfs/Qma9TYRgjJVfNm4x78GNZERHeL8GNfGFoVELxq4mjUfN1e
-    const handleOk = async () => {
+ async function handleOk () {
      
       const uploadMusicUri = {
         abi: nftAbi,
@@ -35,20 +35,46 @@ const UploadMusic = ({isVisible, onClose}) => {
            _tokenURI: musicUri
         },
     }
-
+  console.log("statring")
     await runContractFunction({
         params: uploadMusicUri,
-        onSuccess: () => handleUploadSuccess,
+        onSuccess: () => approveAndList,
         onError: (error) => {
             console.log(error)
         },
     })
+    console.log("ending")
 
     }
-
-    const handleUploadSuccess = async(tx) => {
+  
+    async function approveAndList(tx) {
+      
+      console.log("Approving")
       await tx.wait(1)
+      console.log("Approving...")
       const tokenId = await getMusicId()
+      const approveOptions = {
+          abi: nftAbi,
+          contractAddress: nftAddress,
+          functionName: "approve",
+          params: {
+              to: marketplaceAddress,
+              tokenId: tokenId,
+          },
+      }
+
+      await runContractFunction({
+          params: approveOptions,
+          onSuccess: () => handleUploadSuccess(tokenId),
+          onError: (error) => {
+              console.log(error)
+          },
+      })
+  }
+
+
+    const handleUploadSuccess = async(tokenId) => {
+
       const uploadOption = {
         abi: nftMarketplaceAbi,
         contractAddress: marketplaceAddress,
