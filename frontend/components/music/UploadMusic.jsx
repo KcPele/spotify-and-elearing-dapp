@@ -38,7 +38,7 @@ const UploadMusic = ({isVisible, onClose}) => {
   console.log("statring")
     await runContractFunction({
         params: uploadMusicUri,
-        onSuccess: () => approveAndList,
+        onSuccess: () => approveAndList(),
         onError: (error) => {
             console.log(error)
         },
@@ -47,10 +47,10 @@ const UploadMusic = ({isVisible, onClose}) => {
 
     }
   
-    async function approveAndList(tx) {
+    async function approveAndList() {
       
       console.log("Approving")
-      await tx.wait(1)
+
       console.log("Approving...")
       const tokenId = await getMusicId()
       const approveOptions = {

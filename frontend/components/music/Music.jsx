@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useRef, useEffect, useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { useNotification } from "web3uikit"
 import nftAbi from "../../constants/BasicCourseNft.json"
@@ -21,18 +21,57 @@ const truncateStr = (fullStr, strLen) => {
     )
 }
 
-const Music = ({ price, seller, cover, description, musicId }) => {
+const Music = ({ price, seller, musicId }) => {
     const { chainId, account, isWeb3Enabled } = useMoralis()
-    const [imageURI, setImageURI] = useState("")
+    const [cover, setImageURI] = useState("https://media.istockphoto.com/photos/concert-stage-on-rock-festival-music-instruments-silhouettes-picture-id1199243596?k=20&m=1199243596&s=612x612&w=0&h=5L3fWhbB4YtVOPsnnqrUg22FaHnSGVCjkrG79wB31Tc=")
+    const [description, setDescription] = useState("")
+    const [title, setTitle] = useState("")
     const dispatch = useNotification()
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     //will change it to nftaddress
+    const {runContractFunction} = useWeb3Contract()
 
     const marketplaceAddress = networkMapping[chainString]["NftMarketplace"][0]
 
     const nftAddress = networkMapping[chainString].NftAddress[0]
     const isOwnedByUser = seller === account || seller === undefined
     const formattedSellerAddress = isOwnedByUser ? "you" : truncateStr(seller || "", 15)
+
+    async function updateUI() {
+        const tokenURIOption = {
+          abi: nftAbi,
+          contractAddress: nftAddress,
+          functionName: "tokenURI",
+          params: {
+              tokenId: musicId,
+          },
+        }
+        const tokenURI =  await runContractFunction({
+          params: tokenURIOption,
+          onSuccess: () => {console.log("token getton")},
+          onError: (error) => {
+              console.log(error, "error here")
+          },
+      })
+        // We are going to cheat a little here..
+        if (tokenURI) {
+            const tokenURIResponse = await (await fetch(tokenURI)).json()
+            let desc = tokenURIResponse.description
+           setTitle(tokenURIResponse.title)
+            setImageURI(tokenURIResponse.image)
+        
+            setDescription(desc)
+           
+
+    
+        }
+    }
+  
+    useEffect(() => {
+        if (isWeb3Enabled) {
+            updateUI()
+        }
+    }, [isWeb3Enabled])
 
     const { runContractFunction: buyItem } = useWeb3Contract({
         abi: nftMarketplaceAbi,
@@ -73,6 +112,10 @@ const Music = ({ price, seller, cover, description, musicId }) => {
             onClick={handleCardClick}
         >
             <div className="flex flex-col items-center">
+            <div className="flex flex-wrap flex-col text-center">
+                    <h3>{title}</h3>
+                    
+                </div>
                 <Image
                     className="rounded-full m-auto"
                     loader={() => cover}
@@ -82,6 +125,7 @@ const Music = ({ price, seller, cover, description, musicId }) => {
                 />
                 <div className="flex flex-wrap flex-col text-center">
                     <p>{description}</p>
+                    <p>uploaded by {formattedSellerAddress}</p>
                 </div>
             </div>
         </div>

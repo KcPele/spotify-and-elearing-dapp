@@ -11,7 +11,8 @@ const ListMusic = () => {
     const [showModal, setShowModal] = useState(false)
     const hideModal = () => setShowModal(false)
     const { isWeb3Enabled } = useMoralis()
-   
+
+
     return (
         
           <div className="container mx-auto  ">
@@ -32,12 +33,14 @@ const ListMusic = () => {
                     </button>
                     <UploadMusic isVisible={showModal} onClose={hideModal} />
                 </div>
-                
-                <div className="flex gap-6 flex-wrap">
-                    {songs.map(song => {
-                      return <Music key={song.id} price={ethers.utils.parseEther("0.06")} seller={song.seller} cover={song.cover} description={song.description} musicId={song.id}/>
+                {loading ? (<p>Loading..</p>) : (
+                    <div className="flex gap-6 flex-wrap">
+                    {data.activeMusics.map(song => {
+                      return <Music key={song.id} price={song.price} seller={song.seller} musicId={song.tokenId}/>
                     })}
                 </div>
+                )}
+                
                 </div>
                
               </div>

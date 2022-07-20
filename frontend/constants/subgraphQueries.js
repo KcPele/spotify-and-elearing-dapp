@@ -3,31 +3,31 @@ import { gql } from "@apollo/client"
 
 export const GET_ACTIVE_MUSICS = gql`
     {
-        activeMusic(first: 5, where: { buyer: "0x00000000" }) {
+        activeMusics(skip: 8) {
             id
             buyer
             seller
             nftAddress
-            tokenId
             price
-        }
+            tokenId
+          }
     }
 `
 export const GET_USER_MUSICS = gql`
 {
-    activeMusic(first: 5, where: { buyer: "0x00000000" }) {
-        id
-        buyer
-        seller
-        nftAddress
-        tokenId
-        price
-    }
-}
+    musicBoughts(first: 5, where: {buyer: "0x9ecb6b5e7055a48667482097f51bd700ae82285d"}) {
+           id
+           buyer
+           nftAddress
+           tokenId
+           price
+       }
+   }
+
 `
 export const GET_ACTIVE_COURSES = gql`
     {
-        activeCourse(first: 5, where: { buyer: "0x00000000" }) {
+        activeCourses(first: 5) {
             id
             buyer
             seller

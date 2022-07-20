@@ -1,26 +1,21 @@
 const { ethers, network } = require("hardhat")
 const { moveBlocks } = require("../utils/move-blocks")
 
-const PRICE = ethers.utils.parseEther("0.1")
+const PRICE = ethers.utils.parseEther("0.01")
 
 async function mintAndList() {
     const nftMarketplace = await ethers.getContract("NftMarketplace")
-    const randomNumber = Math.floor(Math.random() * 2)
-    let basicNft
-    if (randomNumber == 1) {
-        basicNft = await ethers.getContract("BasicNftTwo")
-    } else {
-        basicNft = await ethers.getContract("BasicNft")
-    }
+
+    let basicNft = await ethers.getContract("BasicCourseNft")
     console.log("Minting NFT...")
-    const mintTx = await basicNft.mintNft()
-    const mintTxReceipt = await mintTx.wait(1)
-    const tokenId = mintTxReceipt.events[0].args.tokenId
+    // const mintTx = await basicNft.mintNftContent("https://ipfs.infura.io/ipfs/Qma9TYRgjJVfNm4x78GNZERHeL8GNfGFoVELxq4mjUfN1e")
+    // const mintTxReceipt = await mintTx.wait(1)
+    // const tokenId = mintTxReceipt.events[0].args.tokenId
     console.log("Approving NFT...")
-    const approvalTx = await basicNft.approve(nftMarketplace.address, tokenId)
+    const approvalTx = await basicNft.approve(nftMarketplace.address, 9)
     await approvalTx.wait(1)
     console.log("Listing NFT...")
-    const tx = await nftMarketplace.listItem(basicNft.address, tokenId, PRICE)
+    const tx = await nftMarketplace.listMusic(9, PRICE)
     await tx.wait(1)
     console.log("NFT Listed!")
     if (network.config.chainId == 31337) {
