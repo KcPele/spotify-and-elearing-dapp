@@ -20,7 +20,7 @@ const Navbar = () => {
                         </Link>
                     </>
                 )}
-
+                        <span>Rinkeby Only</span>
                 <ConnectButton moralisAuth={false} />
             </div>
         </nav>
