@@ -26,14 +26,14 @@ const contentReducer = (state, action) => {
 const NftContextProvider = ({ children }) => {
     const [content, dispatch] = useReducer(contentReducer, {
         tracks: [
-          {
-            title: "Heart",
-            artist: "Adele",
-            audioSrc:
-                "https://ipfs.infura.io/ipfs/QmUcWbUDMjpJesDziA3tSZ8uN982MsmzR3YkYpccaq1Ls1",
-            image: "https://ipfs.infura.io/ipfs/QmZMkxeC1PwKXPPc36XTVzNGsU6qZ71b5Fe5yw1Bk1bGwa",
-            color: "orange",
-        }
+            {
+                title: "Heart",
+                artist: "Adele",
+                audioSrc:
+                    "https://ipfs.infura.io/ipfs/QmUcWbUDMjpJesDziA3tSZ8uN982MsmzR3YkYpccaq1Ls1",
+                image: "https://ipfs.infura.io/ipfs/QmZMkxeC1PwKXPPc36XTVzNGsU6qZ71b5Fe5yw1Bk1bGwa",
+                color: "orange",
+            }
         ],
         courses: [],
     })

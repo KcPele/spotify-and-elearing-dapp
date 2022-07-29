@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
                 <NotificationProvider>
                     <NftContextProvider>
                     <Navbar />
-                    <div className=" min-h-screen">
+                    <div className=" min-h-full font-mono">
                     <Component {...pageProps} />
                     </div>
                     </NftContextProvider>

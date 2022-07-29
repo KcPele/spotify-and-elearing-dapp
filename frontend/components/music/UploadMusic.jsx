@@ -12,6 +12,7 @@ const UploadMusic = ({isVisible, onClose}) => {
     const [price, setPrice] = useState(0)
     const { runContractFunction } = useWeb3Contract()
     const dispatch = useNotification() 
+    const [isLoading, setIsLoading] = useState(false)
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     //will change it to nftaddress
 
@@ -36,6 +37,7 @@ const UploadMusic = ({isVisible, onClose}) => {
         },
     }
   console.log("statring")
+  setIsLoading(true)
     await runContractFunction({
         params: uploadMusicUri,
         onSuccess: () => approveAndList(),
@@ -94,12 +96,14 @@ const UploadMusic = ({isVisible, onClose}) => {
 
 async function handleListSuccess(tx) {
     await tx.wait(1)
+
     dispatch({
         type: "success",
         message: "NFT listing",
         title: "NFT Muisc uploaded",
         position: "topR",
     })
+    setIsLoading(false)
     onClose && onClose()
     setMusicUri("")
     setPrice(0)
@@ -111,6 +115,7 @@ async function handleListSuccess(tx) {
       cancelText="Discard Changes"
       isVisible={isVisible}
       okText="Upload"
+      isLoading={isLoading}
       onCancel={onClose}
       onCloseButtonPressed={onClose}
       onOk={handleOk}

@@ -105,6 +105,7 @@ const trackStyling = `
 
 	return ( 
     <div className="audio-player max-w-[60%]">
+
 			<div className="track-info">
 			  <img
 			    className="artwork"
@@ -132,6 +133,7 @@ const trackStyling = `
         style={{ background: trackStyling }}
       />
 			</div>
+     
     <Backdrop
         trackIndex={trackIndex}
         activeColor={color}
