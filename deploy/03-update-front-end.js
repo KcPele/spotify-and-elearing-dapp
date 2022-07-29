@@ -7,27 +7,28 @@ const fs = require("fs")
 const { network, ethers } = require("hardhat")
 
 module.exports = async () => {
-    if (process.env.UPDATE_FRONT_END) {
-        console.log("Writing to front end...")
-        await updateContractAddresses()
-        await updateAbi()
-        console.log("Front end written!")
-    }
-}
+    console.log('deploy')
+//     if (process.env.UPDATE_FRONT_END) {
+//         console.log("Writing to front end...")
+//         await updateContractAddresses()
+//         await updateAbi()
+//         console.log("Front end written!")
+//     }
+// }
 
-async function updateAbi() {
-    const nftMarketplace = await ethers.getContract("NftMarketplace")
+// async function updateAbi() {
+//     const nftMarketplace = await ethers.getContract("NftMarketplace")
     
-    fs.writeFileSync(
-        `${frontEndAbiLocation}NftMarketplace.json`,
-        nftMarketplace.interface.format(ethers.utils.FormatTypes.json)
-    )
+//     fs.writeFileSync(
+//         `${frontEndAbiLocation}NftMarketplace.json`,
+//         nftMarketplace.interface.format(ethers.utils.FormatTypes.json)
+//     )
 
-    const basicNft = await ethers.getContract("BasicCourseNft")
-    fs.writeFileSync(
-        `${frontEndAbiLocation}BasicCourseNft.json`,
-        basicNft.interface.format(ethers.utils.FormatTypes.json)
-    )
+//     const basicNft = await ethers.getContract("BasicCourseNft")
+//     fs.writeFileSync(
+//         `${frontEndAbiLocation}BasicCourseNft.json`,
+//         basicNft.interface.format(ethers.utils.FormatTypes.json)
+//     )
 
 }
 
